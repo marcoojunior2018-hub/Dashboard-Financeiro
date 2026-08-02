@@ -198,6 +198,72 @@ input:focus{border-color:var(--gold)}
   border-radius:50%;animation:sp .7s linear infinite;display:inline-block;vertical-align:-3px}
 @keyframes sp{to{transform:rotate(360deg)}}
 svg{display:block;width:100%;height:auto}
+
+/* ---------- agente ---------- */
+.fabs{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;z-index:60;
+  display:flex;gap:10px;align-items:center}
+.fab-mic{width:60px;height:60px;border-radius:50%;padding:0;flex:none;font-size:24px;
+  box-shadow:var(--shadow-cta),0 14px 34px rgba(0,0,0,.55)}
+.fab-mic.ouvindo{animation:pulso 1.1s ease-in-out infinite}
+@keyframes pulso{0%,100%{box-shadow:0 0 0 0 rgba(255,186,26,.55)}50%{box-shadow:0 0 0 16px rgba(255,186,26,0)}}
+.fab-mais{width:52px;height:52px;border-radius:50%;padding:0;flex:none;font-size:22px;font-weight:400}
+.conversa{max-height:44vh;overflow-y:auto;margin:16px 0;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:88%;padding:11px 15px;border-radius:16px;font-size:14px;line-height:1.45}
+.msg.eu{align-self:flex-end;background:var(--gold);color:#0D1117;font-weight:600;border-bottom-right-radius:5px}
+.msg.ele{align-self:flex-start;background:var(--card-2);color:var(--text);border-bottom-left-radius:5px}
+.msg.err{align-self:flex-start;background:rgba(248,81,73,.12);border:1px solid rgba(248,81,73,.3);color:#ffb4b1}
+.proposta{align-self:stretch;background:var(--card);border:1px solid rgba(255,186,26,.35);
+  border-radius:16px;padding:16px}
+.proposta .eyebrow{color:var(--gold)}
+.proposta .linha{display:flex;justify-content:space-between;gap:12px;padding:8px 0;
+  border-top:1px solid var(--border);font-size:13.5px}
+.proposta .linha:first-of-type{border-top:none}
+.proposta .linha b{font-variant-numeric:tabular-nums;text-align:right}
+.proposta .acoes{display:flex;gap:8px;margin-top:14px}
+.entrada{display:flex;gap:9px;align-items:center}
+.entrada input{flex:1}
+.ouvindo-lbl{font-size:12.5px;color:var(--gold);font-weight:700;margin-top:10px;text-align:center}
+
+/* ---------- metas ---------- */
+.meta{background:var(--soft);border:1px solid var(--border);border-radius:20px;padding:22px;margin-bottom:14px}
+.meta.foco{background:var(--card);border-color:rgba(255,186,26,.28)}
+.meta-top{display:flex;gap:20px;align-items:center}
+.anel{width:104px;height:104px;flex:none;position:relative}
+.anel svg{width:104px;height:104px;transform:rotate(-90deg)}
+.anel .dentro{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.anel .dentro b{font-size:21px;font-weight:800;letter-spacing:-.03em;line-height:1}
+.anel .dentro span{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--text-soft);margin-top:3px}
+.meta-info{min-width:0;flex:1}
+.meta-info h3{margin:0 0 6px;font-size:18px;font-weight:800;letter-spacing:-.02em}
+.meta-falta{font-size:26px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;
+  line-height:1.05}
+.meta-falta small{display:block;font-size:10.5px;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--text-soft);margin-bottom:3px}
+.ritmo{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:18px;
+  border-top:1px solid var(--border);padding-top:16px}
+.ritmo div span{display:block;font-size:9.5px;font-weight:800;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--text-soft)}
+.ritmo div b{display:block;font-size:17px;font-weight:800;letter-spacing:-.02em;margin-top:4px;
+  font-variant-numeric:tabular-nums}
+.marcos{display:flex;gap:6px;margin-top:16px}
+.marco{flex:1;text-align:center;padding:9px 4px;border-radius:10px;border:1px solid var(--border);
+  background:rgba(255,244,221,.03)}
+.marco.ok{background:rgba(63,185,80,.12);border-color:rgba(63,185,80,.3)}
+.marco.prox{background:rgba(255,186,26,.13);border-color:rgba(255,186,26,.4)}
+.marco b{display:block;font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums}
+.marco span{display:block;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--text-soft);margin-top:2px}
+.marco.prox span{color:var(--gold)}
+.veredito{margin-top:16px;padding:12px 14px;border-radius:12px;font-size:13px;font-weight:600;line-height:1.45}
+.v-ok{background:rgba(63,185,80,.10);border:1px solid rgba(63,185,80,.26);color:#7ee2a0}
+.v-nao{background:rgba(248,81,73,.09);border:1px solid rgba(248,81,73,.26);color:#ffb4b1}
+.v-neutro{background:rgba(255,186,26,.07);border:1px solid rgba(255,186,26,.24);color:var(--gold-light)}
+@media(max-width:520px){
+  .meta-top{gap:14px}.anel,.anel svg{width:86px;height:86px}
+  .anel .dentro b{font-size:18px}
+  .ritmo{grid-template-columns:1fr 1fr;gap:12px}
+}
 </style>
 </head>
 <body>
@@ -235,6 +301,7 @@ svg{display:block;width:100%;height:auto}
       <nav class="abas">
         <button data-aba="hoje" class="on">Hoje</button>
         <button data-aba="degrau">Degrau 1</button>
+        <button data-aba="metas">Metas</button>
         <button data-aba="dividas">Dívidas</button>
         <button data-aba="historico">Histórico</button>
       </nav>
@@ -243,7 +310,25 @@ svg{display:block;width:100%;height:auto}
   <main><div class="container" id="conteudo"></div></main>
 </div>
 
-<button class="btn btn--primary fab" id="fab" style="display:none">Lançar gasto</button>
+<div class="fabs" id="fabs" style="display:none">
+  <button class="btn btn--ghost fab-mais" id="fabMais" title="Lançar na mão">+</button>
+  <button class="btn btn--primary fab-mic" id="fabMic" title="Falar com o agente">&#127908;</button>
+</div>
+
+<div class="sheet" id="sheetIA"><div class="sheet-in">
+  <h3>Assistente</h3>
+  <p class="sub" id="iaSub">Fale ou escreva. Ele propõe, você confirma.</p>
+  <div class="conversa" id="conversa"></div>
+  <div class="entrada">
+    <input type="text" id="iaTexto" placeholder="gastei 45 no mercado pelo Nubank" autocomplete="off">
+    <button class="btn btn--primary btn--sm" id="iaEnviar">Enviar</button>
+  </div>
+  <div class="ouvindo-lbl" id="iaOuvindo" style="display:none">Ouvindo…</div>
+  <div style="display:flex;gap:9px;margin-top:18px">
+    <button class="btn btn--ghost btn--sm" id="iaFechar" style="flex:1">Fechar</button>
+    <button class="btn btn--ghost btn--sm" id="iaLimpar">Limpar conversa</button>
+  </div>
+</div></div>
 
 <div class="sheet" id="sheet"><div class="sheet-in">
   <h3>Lançar</h3>
@@ -259,6 +344,20 @@ svg{display:block;width:100%;height:auto}
   <div style="display:flex;gap:9px;margin-top:24px">
     <button class="btn btn--ghost" id="fCancel" style="flex:1">Cancelar</button>
     <button class="btn btn--primary" id="fOk" style="flex:2">Confirmar</button></div>
+</div></div>
+
+<div class="sheet" id="sheetMeta"><div class="sheet-in">
+  <h3 id="mTitulo">Meta</h3>
+  <p class="sub">Sem alvo e prazo, o painel não consegue cobrar nada de você.</p>
+  <div class="campo"><span class="eyebrow">Valor alvo</span>
+    <input type="text" id="mAlvo" inputmode="decimal" placeholder="20000" style="margin-top:8px"></div>
+  <div class="campo"><span class="eyebrow">Data alvo — AAAA-MM-DD</span>
+    <input type="text" id="mData" inputmode="numeric" placeholder="2027-12-31" style="margin-top:8px"></div>
+  <div class="campo"><span class="eyebrow">Quanto já tenho guardado</span>
+    <input type="text" id="mAtual" inputmode="decimal" placeholder="0" style="margin-top:8px"></div>
+  <div style="display:flex;gap:9px;margin-top:24px">
+    <button class="btn btn--ghost" id="mCancel" style="flex:1">Cancelar</button>
+    <button class="btn btn--primary" id="mOk" style="flex:2">Salvar</button></div>
 </div></div>
 
 <div class="toast" id="toast"></div>
@@ -631,7 +730,8 @@ function desenhar(){
     ligar(); return;
   }
   const h=faixaEstado()+cardDiagnostico()+
-    (ABA==='hoje'?abaHoje():ABA==='degrau'?abaDegrau():ABA==='dividas'?abaDividas():abaHistorico());
+    (ABA==='hoje'?abaHoje():ABA==='degrau'?abaDegrau():ABA==='metas'?abaMetas()
+     :ABA==='dividas'?abaDividas():abaHistorico());
   document.getElementById('conteudo').innerHTML=h;
   ligar();
 }
@@ -742,18 +842,7 @@ function abaDegrau(){
       <div class="hint">Uma por vez. Só entra a próxima quando esta virar receita ou for descartada.</div></div>`;
   }
 
-  h+='<div class="card"><h2>Metas</h2>';
-  metas().forEach(m=>{
-    const chega=(m.nec!=null&&m.ritmo>0)?m.ritmo>=m.nec:null;
-    h+=`<div class="prog"><div class="cab">
-      <div class="t">${esc(m.nome)}</div>
-      <div class="v">${BRL(m.atual)} <i>/ ${m.alvo!=null?BRL(m.alvo):''}</i>${m.alvo==null?' '+PRE:''}</div></div>
-      ${barra([{w:m.alvo?m.atual/m.alvo*100:0,c:'var(--gold)'}])}
-      <div class="sub">${m.nec!=null
-        ?`${BRL(m.nec)}/mês por ${m.rest} meses · ritmo ${BRL(m.ritmo)}/mês ·
-          <b class="${chega?'ok':'bad'}">${chega?'chega no prazo':'não chega'}</b>`
-        :'sem valor alvo e data não dá para calcular o mensal'}</div></div>`});
-  h+='</div></div><div>';
+  h+='</div><div>';
 
   if(BASE.filtros.length){
     h+='<div class="card card-deep"><h2>Filtro de tolerância</h2>';
@@ -764,6 +853,96 @@ function abaDegrau(){
       tiverem número na aba <b>filtros</b>.</div></div>`;
   }
   h+='</div></div>';
+  return h;
+}
+
+/* ============ ABA: METAS ============ */
+function anel(pct,cor){
+  const r=44, c=2*Math.PI*r, off=c-(Math.max(0,Math.min(100,pct))/100)*c;
+  return `<div class="anel"><svg viewBox="0 0 104 104">
+    <circle cx="52" cy="52" r="${r}" fill="none" stroke="rgba(255,244,221,.07)" stroke-width="9"/>
+    <circle cx="52" cy="52" r="${r}" fill="none" stroke="${cor}" stroke-width="9" stroke-linecap="round"
+      stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}"/>
+    </svg><div class="dentro"><div><b>${Math.round(pct)}%</b><span>feito</span></div></div></div>`;
+}
+function abaMetas(){
+  const lista=metas().map((m,i)=>({...m,id:(BASE.metas[i]||{}).id||''}));
+  if(!lista.length) return '<div class="card"><h2>Metas</h2><p class="sub">Nenhuma meta cadastrada.</p></div>';
+
+  let h=`<div class="card card-deep" style="margin-bottom:14px">
+    <h2>Como ler esta tela</h2>
+    <p class="sub" style="font-size:13.5px">Meta distante não se internaliza. O que se internaliza é o
+    <b style="color:var(--text)">próximo marco</b> e o <b style="color:var(--text)">custo por dia</b>.
+    Os dois estão em cada cartão abaixo.</p></div>`;
+
+  lista.forEach((m,idx)=>{
+    const temAlvo=m.alvo!=null&&m.alvo>0;
+    const pct=temAlvo?Math.min(100,m.atual/m.alvo*100):0;
+    const cor=pct>=100?'var(--success)':'var(--gold)';
+    const porDia=m.nec!=null?m.nec/30.44:null;
+    // no ritmo atual, quando chega
+    let quando=null;
+    if(temAlvo&&m.ritmo>0&&m.falta>0){
+      const meses=Math.ceil(m.falta/m.ritmo);
+      quando=nomeMes(addMes(comp(hoje),meses));
+    }
+    const chega=(m.nec!=null&&m.ritmo>0)?m.ritmo>=m.nec:null;
+
+    h+=`<div class="meta${idx===0?' foco':''}">
+      <div class="meta-top">
+        ${anel(pct,cor)}
+        <div class="meta-info">
+          <h3>${esc(m.nome)}</h3>
+          <div class="meta-falta"><small>${temAlvo?'Falta juntar':'Sem alvo definido'}</small>
+            ${temAlvo?BRL(m.falta):PRE}</div>
+          <div class="sub" style="margin-top:6px">${BRL(m.atual)} de ${temAlvo?BRL(m.alvo):'—'}
+            ${m.rest?' · prazo em '+m.rest+' meses':''}</div>
+        </div>
+      </div>`;
+
+    if(temAlvo){
+      const marcos=[10,25,50,75,100];
+      const prox=marcos.find(p=>pct<p);
+      h+='<div class="marcos">'+marcos.map(p=>{
+        const val=m.alvo*p/100;
+        const feito=pct>=p, ehProx=p===prox;
+        return `<div class="marco ${feito?'ok':ehProx?'prox':''}">
+          <b>${p}%</b><span>${feito?'✓':BRL(val).replace('R$','').trim()}</span></div>`}).join('')+'</div>';
+      if(prox){
+        const faltaMarco=m.alvo*prox/100-m.atual;
+        h+=`<div class="veredito v-neutro">Próximo marco: <b>${prox}%</b> —
+          faltam <b>${BRL(faltaMarco)}</b>. É esse número que você persegue esta semana, não o alvo final.</div>`;
+      }
+    }
+
+    h+=`<div class="ritmo">
+      <div><span>Por mês</span><b>${m.nec!=null?BRL(m.nec):'—'}</b></div>
+      <div><span>Por dia</span><b>${porDia!=null?BRL(porDia):'—'}</b></div>
+      <div><span>Guardo hoje</span><b class="${m.ritmo>0?'':'bad'}">${BRL(m.ritmo)}<small style="font-size:11px;font-weight:600">/mês</small></b></div>
+    </div>
+    <div class="hint" style="margin-top:10px">"Guardo hoje" é a média dos últimos 3 meses lançados na
+      categoria de investimento — é o mesmo número para todas as metas, porque é um bolso só.</div>`;
+
+    if(m.nec==null){
+      h+=`<div class="veredito v-neutro">Sem valor alvo e data, não existe cálculo — só intenção.
+        Defina os dois e esta meta passa a cobrar de você todo dia.</div>`;
+    } else if(chega){
+      h+=`<div class="veredito v-ok">No ritmo atual você chega${quando?' em <b>'+quando+'</b>':''},
+        dentro do prazo.</div>`;
+    } else if(m.ritmo>0){
+      h+=`<div class="veredito v-nao">No ritmo atual você chega${quando?' só em <b>'+quando+'</b>':''} —
+        depois do prazo. Faltam <b>${BRL(m.nec-m.ritmo)}/mês</b> para virar o jogo.</div>`;
+    } else {
+      h+=`<div class="veredito v-nao">Ritmo zero: nada foi guardado nos últimos 3 meses.
+        No ritmo atual esta meta nunca acontece.</div>`;
+    }
+
+    h+=`<div style="margin-top:16px"><button class="btn btn--ghost btn--sm"
+      data-meta="${esc(m.id)}" data-alvo="${m.alvo!=null?m.alvo:''}"
+      data-data="${esc(BASE.metas.find(x=>x.id===m.id)?.data_alvo||'')}"
+      data-atual="${m.atual}" data-nome="${esc(m.nome)}">Definir alvo, prazo e quanto já tenho</button></div>`;
+    h+='</div>';
+  });
   return h;
 }
 
@@ -846,6 +1025,7 @@ function ligar(){
     verTudo[b.dataset.mais]=!verTudo[b.dataset.mais]; render()});
   document.querySelectorAll('[data-ordem]').forEach(b=>b.onclick=()=>{
     window.__ordem=b.dataset.ordem; render()});
+  document.querySelectorAll('[data-meta]').forEach(b=>b.onclick=()=>abrirMeta(b.dataset));
   const o=document.getElementById('orc');
   if(o) o.onchange=e=>{window.__orc=num(e.target.value)||0;render()};
   on('recarregar',()=>carregar(true));
@@ -864,7 +1044,7 @@ function mesInicial(){
 function mostrarApp(){
   document.getElementById('gate').style.display='none';
   document.getElementById('app').style.display='';
-  document.getElementById('fab').style.display='';
+  document.getElementById('fabs').style.display='';
 }
 function usarEmbutido(msg){
   BASE=lerEmbutido(); ONLINE=false; ULTIMO_ERRO=msg||''; MES=mesInicial();
@@ -921,6 +1101,173 @@ function montarChips(){
     document.querySelectorAll('[data-conta]').forEach(x=>x.classList.remove('on'));
     b.classList.add('on');CONTA=b.dataset.conta});
 }
+/* ================= AGENTE ================= */
+let PROPOSTA=null, reconhecimento=null, ouvindo=false;
+
+function contextoParaIA(){
+  const s=situacao();
+  return {
+    hoje: ymd(hoje),
+    mes: MES,
+    caixa_livre: +s.livre.toFixed(2),
+    em_conta: +s.caixa.toFixed(2),
+    ja_gastei_no_mes: +s.saidaReal.toFixed(2),
+    categorias: BASE.categorias.map(c=>({nome:c.nome,grupo:c.grupo,cota:num(c.cota_mensal)||0})),
+    contas: BASE.contas.map(c=>({id:c.id,nome:c.nome,papel:c.papel||''})),
+    contas_a_pagar: aPagar().map(t=>({id:t.id,descricao:t.descricao,valor:num(t.valor),categoria:t.categoria})),
+    metas: BASE.metas.map(m=>({nome:m.nome,alvo:num(m.valor_alvo),atual:num(m.valor_atual),data:m.data_alvo||''})),
+    dividas: BASE.dividas.map(d=>({credor:d.credor,saldo:num(d.saldo_atual),
+      taxa_mensal:num(d.taxa_juros_mensal),parcela:num(d.valor_parcela)})),
+    degrau: degrau().map(g=>({nome:g.nome,atual:g.atual,piso:g.piso}))
+  };
+}
+function msg(quem,txt){
+  const c=document.getElementById('conversa');
+  const d=document.createElement('div');
+  d.className='msg '+quem; d.textContent=txt;
+  c.appendChild(d); c.scrollTop=c.scrollHeight; return d;
+}
+function rotuloConta(id){ const c=BASE.contas.find(x=>x.id===id); return c?c.nome:id }
+
+function mostrarProposta(acao,a){
+  PROPOSTA={acao,args:a};
+  const c=document.getElementById('conversa');
+  const d=document.createElement('div'); d.className='proposta';
+  let corpo='', titulo='';
+  if(acao==='lancar'){
+    titulo=a.tipo==='entrada'?'Registrar entrada':'Registrar gasto';
+    corpo=`<div class="linha"><span>Valor</span><b>${BRL(Number(a.valor))}</b></div>
+      <div class="linha"><span>Categoria</span><b>${esc(a.categoria||'')}</b></div>
+      <div class="linha"><span>Conta</span><b>${esc(rotuloConta(a.conta))}</b></div>
+      ${a.descricao?`<div class="linha"><span>Descrição</span><b>${esc(a.descricao)}</b></div>`:''}`;
+  } else if(acao==='quitar'){
+    const t=BASE.transacoes.find(x=>x.id===a.id);
+    titulo='Dar baixa';
+    corpo=`<div class="linha"><span>Conta</span><b>${esc(t?t.descricao:a.id)}</b></div>
+      <div class="linha"><span>Valor</span><b>${t?BRL(num(t.valor)):'—'}</b></div>`;
+  } else if(acao==='atualizar'){
+    let campos={}; try{campos=typeof a.campos==='string'?JSON.parse(a.campos):(a.campos||{})}catch(e){}
+    titulo='Corrigir a base';
+    corpo=`<div class="linha"><span>Onde</span><b>${esc(a.aba)} · ${esc(a.chave_valor)}</b></div>`+
+      Object.entries(campos).map(([k,v])=>
+        `<div class="linha"><span>${esc(k)}</span><b>${esc(String(v))}</b></div>`).join('');
+  }
+  d.innerHTML=`<div class="eyebrow">${titulo}</div>${corpo}
+    <div class="acoes"><button class="btn btn--ghost btn--sm" id="pNao" style="flex:1">Descartar</button>
+    <button class="btn btn--primary btn--sm" id="pSim" style="flex:2">Confirmar</button></div>`;
+  c.appendChild(d); c.scrollTop=c.scrollHeight;
+  d.querySelector('#pNao').onclick=()=>{PROPOSTA=null;d.remove();msg('ele','Descartado.')};
+  d.querySelector('#pSim').onclick=()=>executarProposta(d);
+}
+
+async function executarProposta(cartao){
+  if(!PROPOSTA) return;
+  if(!ONLINE){ msg('err','Modo leitura: conecte a planilha para gravar.'); return }
+  const {acao,args}=PROPOSTA; PROPOSTA=null;
+  const b=cartao.querySelector('#pSim'); b.innerHTML='<span class="spin"></span>';
+  try{
+    let p;
+    if(acao==='lancar') p={acao:'lancar',valor:args.valor,tipo:args.tipo||'saida',
+      categoria:args.categoria,conta:args.conta,descricao:args.descricao||'',data:ymd(hoje)};
+    else if(acao==='quitar') p={acao:'quitar',id:args.id};
+    else p={acao:'atualizar',aba:args.aba,chave_valor:args.chave_valor,
+      campos:typeof args.campos==='string'?args.campos:JSON.stringify(args.campos||{})};
+    const j=await api(p);
+    BASE=normalizar(j.base);
+    cartao.remove(); render();
+    msg('ele', acao==='lancar' ? 'Feito. '+BRL(Number(args.valor))+' em '+args.categoria+'.'
+      : acao==='quitar' ? 'Baixado do caixa.' : 'Base corrigida.');
+  }catch(e){ b.textContent='Confirmar'; msg('err','Não consegui gravar: '+e.message) }
+}
+
+async function perguntarIA(txt){
+  msg('eu',txt);
+  const pensando=msg('ele','…');
+  try{
+    const r=await fetch('/api/agente',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({texto:txt,contexto:contextoParaIA()})});
+    const j=await r.json();
+    pensando.remove();
+    if(j.erro){ msg('err',j.erro); return }
+    if(j.acao==='responder'){ msg('ele',(j.args&&j.args.texto)||'—'); return }
+    mostrarProposta(j.acao,j.args||{});
+  }catch(e){
+    pensando.remove();
+    msg('err','O agente não respondeu. Se você não configurou a GEMINI_API_KEY na Vercel, ele não existe ainda.');
+  }
+}
+
+function abrirIA(){
+  document.getElementById('sheetIA').classList.add('on');
+  if(!document.getElementById('conversa').children.length)
+    msg('ele','Fala. Exemplos: "gastei 45 no mercado pelo Nubank", "paguei o aluguel", '+
+        '"o Inter cobra 9,5% ao mês", "quanto posso gastar hoje?"');
+  setTimeout(()=>document.getElementById('iaTexto').focus(),120);
+}
+function fecharIA(){ document.getElementById('sheetIA').classList.remove('on'); pararVoz() }
+
+/* voz: reconhecimento nativo do navegador, sem API e sem custo */
+function iniciarVoz(){
+  const R=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!R){ abrirIA(); msg('err','Este navegador não faz reconhecimento de voz. Use o Chrome, ou escreva.'); return }
+  abrirIA();
+  if(ouvindo){ pararVoz(); return }
+  reconhecimento=new R();
+  reconhecimento.lang='pt-BR'; reconhecimento.interimResults=true; reconhecimento.continuous=false;
+  let final='';
+  reconhecimento.onresult=e=>{
+    let parcial='';
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      const t=e.results[i][0].transcript;
+      if(e.results[i].isFinal) final+=t; else parcial+=t;
+    }
+    document.getElementById('iaTexto').value=(final+parcial).trim();
+  };
+  reconhecimento.onerror=e=>{ pararVoz();
+    msg('err','Microfone: '+(e.error==='not-allowed'?'permissão negada pelo navegador':e.error)) };
+  reconhecimento.onend=()=>{
+    pararVoz();
+    const t=document.getElementById('iaTexto').value.trim();
+    if(t){ document.getElementById('iaTexto').value=''; perguntarIA(t) }
+  };
+  ouvindo=true;
+  document.getElementById('fabMic').classList.add('ouvindo');
+  document.getElementById('iaOuvindo').style.display='';
+  try{ reconhecimento.start() }catch(e){ pararVoz() }
+}
+function pararVoz(){
+  ouvindo=false;
+  document.getElementById('fabMic').classList.remove('ouvindo');
+  document.getElementById('iaOuvindo').style.display='none';
+  if(reconhecimento){ try{reconhecimento.stop()}catch(e){} }
+}
+
+let META_ID='';
+function abrirMeta(d){
+  META_ID=d.meta;
+  document.getElementById('mTitulo').textContent=d.nome||'Meta';
+  document.getElementById('mAlvo').value=d.alvo||'';
+  document.getElementById('mData').value=d.data||'';
+  document.getElementById('mAtual').value=d.atual||'';
+  document.getElementById('sheetMeta').classList.add('on');
+}
+function fecharMeta(){ document.getElementById('sheetMeta').classList.remove('on') }
+async function salvarMeta(){
+  if(!ONLINE) return toast('Modo leitura: conecte a planilha para gravar');
+  if(ocupado) return; ocupado=true;
+  const b=document.getElementById('mOk'); b.innerHTML='<span class="spin"></span>';
+  const p={acao:'meta',id:META_ID};
+  const alvo=num(document.getElementById('mAlvo').value);
+  const atual=num(document.getElementById('mAtual').value);
+  const data=document.getElementById('mData').value.trim();
+  if(alvo!=null) p.valor_alvo=alvo;
+  if(atual!=null) p.valor_atual=atual;
+  if(data) p.data_alvo=data;
+  try{ const j=await api(p); BASE=normalizar(j.base); fecharMeta(); render(); toast('Meta atualizada') }
+  catch(e){ toast('Erro: '+e.message,4200) }
+  finally{ b.textContent='Salvar'; ocupado=false }
+}
+
 function abrirFolha(){
   document.getElementById('sheet').classList.add('on');
   setTimeout(()=>document.getElementById('fValor').focus(),120);
@@ -938,10 +1285,23 @@ document.querySelectorAll('nav.abas button').forEach(b=>b.onclick=()=>{
   ABA=b.dataset.aba; window.scrollTo({top:0,behavior:'smooth'}); render()});
 document.getElementById('prev').onclick=()=>{MES=addMes(MES,-1);render()};
 document.getElementById('next').onclick=()=>{MES=addMes(MES,1);render()};
-document.getElementById('fab').onclick=abrirFolha;
+document.getElementById('fabMais').onclick=abrirFolha;
+document.getElementById('fabMic').onclick=iniciarVoz;
+document.getElementById('iaFechar').onclick=fecharIA;
+document.getElementById('iaEnviar').onclick=()=>{
+  const i=document.getElementById('iaTexto'), t=i.value.trim();
+  if(!t) return; i.value=''; perguntarIA(t)};
+document.getElementById('iaTexto').addEventListener('keydown',e=>{
+  if(e.key==='Enter') document.getElementById('iaEnviar').click()});
+document.getElementById('iaLimpar').onclick=()=>{
+  document.getElementById('conversa').innerHTML=''; PROPOSTA=null};
+document.getElementById('sheetIA').onclick=e=>{if(e.target.id==='sheetIA')fecharIA()};
 document.getElementById('fCancel').onclick=fecharFolha;
 document.getElementById('fOk').onclick=lancar;
 document.getElementById('sheet').onclick=e=>{if(e.target.id==='sheet')fecharFolha()};
+document.getElementById('mCancel').onclick=fecharMeta;
+document.getElementById('mOk').onclick=salvarMeta;
+document.getElementById('sheetMeta').onclick=e=>{if(e.target.id==='sheetMeta')fecharMeta()};
 document.querySelectorAll('[data-tipo]').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('[data-tipo]').forEach(x=>x.classList.remove('on'));
   b.classList.add('on');TIPO=b.dataset.tipo;
