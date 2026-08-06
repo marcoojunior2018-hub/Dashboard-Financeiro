@@ -46,8 +46,10 @@ header{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);
 .mes button{width:32px;height:32px;border-radius:999px;border:1px solid var(--border-2);
   background:transparent;color:var(--text);cursor:pointer;font-size:16px;line-height:1}
 .mes b{font-size:13px;min-width:64px;text-align:center;font-variant-numeric:tabular-nums}
-nav.abas{display:flex;gap:4px;overflow-x:auto;padding:0 0 10px;scrollbar-width:none}
+nav.abas{display:flex;gap:4px;overflow-x:auto;padding:0 2px 10px;scrollbar-width:none;
+  scroll-padding-inline:2px}
 nav.abas::-webkit-scrollbar{display:none}
+@media(min-width:560px){ nav.abas{flex-wrap:wrap;overflow:visible} }
 nav.abas button{flex:none;padding:8px 16px;border-radius:999px;border:1px solid transparent;
   background:transparent;color:var(--text-mid);font-family:var(--font-sans);font-size:13px;
   font-weight:700;cursor:pointer;white-space:nowrap;transition:all .25s var(--ease)}
@@ -202,8 +204,10 @@ svg{display:block;width:100%;height:auto}
 /* ---------- agente ---------- */
 .fabs{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;z-index:60;
   display:flex;gap:10px;align-items:center}
-.fab-mic{width:60px;height:60px;border-radius:50%;padding:0;flex:none;font-size:24px;
+.fab-mic{width:60px;height:60px;border-radius:50%;padding:0;flex:none;
+  display:grid;place-items:center;
   box-shadow:var(--shadow-cta),0 14px 34px rgba(0,0,0,.55)}
+.fab-mic svg{width:24px;height:24px}
 .fab-mic.ouvindo{animation:pulso 1.1s ease-in-out infinite}
 @keyframes pulso{0%,100%{box-shadow:0 0 0 0 rgba(255,186,26,.55)}50%{box-shadow:0 0 0 16px rgba(255,186,26,0)}}
 .fab-mais{width:52px;height:52px;border-radius:50%;padding:0;flex:none;font-size:22px;font-weight:400}
@@ -300,6 +304,7 @@ svg{display:block;width:100%;height:auto}
       </div>
       <nav class="abas">
         <button data-aba="hoje" class="on">Hoje</button>
+        <button data-aba="objetivo">Objetivo</button>
         <button data-aba="degrau">Degrau 1</button>
         <button data-aba="metas">Metas</button>
         <button data-aba="dividas">Dívidas</button>
@@ -312,7 +317,12 @@ svg{display:block;width:100%;height:auto}
 
 <div class="fabs" id="fabs" style="display:none">
   <button class="btn btn--ghost fab-mais" id="fabMais" title="Lançar na mão">+</button>
-  <button class="btn btn--primary fab-mic" id="fabMic" title="Falar com o agente">&#127908;</button>
+  <button class="btn btn--primary fab-mic" id="fabMic" title="Falar com o agente" aria-label="Falar com o agente">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#0D1117"
+         stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="9" y="2" width="6" height="11" rx="3"/>
+      <path d="M5 10.5a7 7 0 0 0 14 0"/><path d="M12 17.5V21"/><path d="M8.5 21h7"/>
+    </svg></button>
 </div>
 
 <div class="sheet" id="sheetIA"><div class="sheet-in">
@@ -363,35 +373,36 @@ svg{display:block;width:100%;height:auto}
 <div class="toast" id="toast"></div>
 
 <script type="text/plain" id="csv_transacoes">id,data,competencia,descricao,valor,tipo,categoria,subcategoria,conta,forma_pagamento,parcela_atual,total_parcelas,recorrente,status,observacao
-T001,2026-08-05,2026-08,Salario,7500.00,entrada,,,BB,transferencia,,,sim,previsto,
-T002,,2026-08,Beneficio iFood,1500.00,entrada,,,IFOOD,beneficio,,,sim,previsto,[PREENCHER] dia que cai
-T003,,2026-08,Aluguel,1900.00,saida,Moradia,,BB,pix,,,sim,previsto,[PREENCHER] dia
-T004,,2026-08,Conta de luz,110.00,saida,Contas de casa,Luz,BB,boleto,,,sim,previsto,[PREENCHER] dia e valor real
-T005,,2026-08,Conta de agua,50.00,saida,Contas de casa,Agua,BB,boleto,,,sim,previsto,[PREENCHER] dia e valor real
-T006,,2026-08,Internet movel,85.00,saida,Internet e telefone,,BB,debito,,,sim,previsto,[PREENCHER] valor exato entre 80 e 90
-T007,,2026-08,Wellhub Silver,149.99,saida,Assinaturas,Wellhub,BB,debito,,,sim,previsto,[PREENCHER] dia
-T008,,2026-08,YouTube Premium,39.90,saida,Assinaturas,YouTube,BB,debito,,,sim,previsto,[PREENCHER] dia
-T009,,2026-08,Ana - notebook,500.00,saida,Dividas e acordos,Ana,BB,pix,1,2,nao,previsto,[PREENCHER] dia
-T010,,2026-08,Meire,250.00,saida,Dividas e acordos,Meire,BB,pix,1,2,nao,previsto,[PREENCHER] dia
-T011,,2026-08,DAS MEI maio e junho,186.58,saida,Dividas e acordos,DAS MEI,BB,boleto,,,nao,previsto,Duas guias atrasadas pagas em agosto. [PREENCHER] dia
-T012,,2026-08,Cannabis,160.00,saida,Cannabis,,BB,dinheiro,,,nao,previsto,[PREENCHER] dia
+T001,2026-08-05,2026-08,Salario,7500.00,entrada,,,BB,transferencia,,,sim,realizado,Caiu dia 05/08 [dado]
+T015,2026-08-05,2026-08,Reserva - parte 1,700.00,saida,Guardar,,MP,pix,1,2,sim,realizado,Feito em 05/08. Limitado pelo teto de pix de 3000 no BB [dado]
+T016,2026-08-06,2026-08,Reserva - parte 2,800.00,saida,Guardar,,MP,pix,2,2,sim,previsto,Completa os 1500 do mes
+T012,2026-08-05,2026-08,Cannabis,160.00,saida,Cannabis,,BB,dinheiro,,,nao,realizado,Pago em 05/08 [dado]
+T003,2026-08-15,2026-08,Aluguel,1900.00,saida,Moradia,,BB,pix,,,sim,previsto,Vence dia 15. Dinheiro ja separado no cofrinho [dado]
+T004,2026-08-15,2026-08,Conta de luz,110.00,saida,Contas de casa,Luz,BB,boleto,,,sim,previsto,Vence dia 15. Valor varia.
+T005,2026-08-15,2026-08,Conta de agua,50.00,saida,Contas de casa,Agua,BB,boleto,,,sim,previsto,Vence dia 15
+T007,2026-08-06,2026-08,Wellhub Silver,149.99,saida,Assinaturas,Wellhub,BB,debito,,,sim,previsto,Academia - inegociavel. Separar em 06/08 [dado]
+T008,2026-08-06,2026-08,YouTube Premium,39.90,saida,Assinaturas,YouTube,BB,debito,,,sim,previsto,Separar em 06/08 [dado]
+T006,2026-08-06,2026-08,Plano de celular,85.00,saida,Internet e telefone,,BB,debito,,,sim,previsto,Pagar em 06/08 [dado]. [PREENCHER] valor exato entre 80 e 90
+T009,2026-08-06,2026-08,Ana - notebook,500.00,saida,Dividas e acordos,Ana,BB,pix,1,2,nao,previsto,Pagar em 06/08 [dado]
+T010,2026-08-06,2026-08,Meire,250.00,saida,Dividas e acordos,Meire,BB,pix,1,2,nao,previsto,Pagar em 06/08 [dado]
+T011,2026-08-06,2026-08,DAS MEI maio e junho,186.58,saida,Dividas e acordos,DAS MEI,BB,boleto,,,nao,previsto,Pagar em 06/08 [dado]. Duas guias atrasadas.
 T013,,2026-09,Ana - notebook,250.00,saida,Dividas e acordos,Ana,BB,pix,2,2,nao,previsto,Parcela final [dado]
 T014,,2026-09,Meire,250.00,saida,Dividas e acordos,Meire,BB,pix,2,2,nao,previsto,[PREENCHER] confirmar se o restante sai em setembro</script>
-<script type="text/plain" id="csv_categorias">nome,grupo,cota_mensal,origem_da_cota,observacao
-Moradia,essencial,1900.00,dado,Aluguel
-Contas de casa,essencial,160.00,dado,Luz 110 + Agua 50
-Internet e telefone,essencial,90.00,dado,Internet movel ~80 a 90
-Assinaturas,essencial,189.89,dado,Wellhub Silver 149.99 + YouTube Premium 39.90
-Alimentacao (vale iFood),essencial,1500.00,dado,Pago com o cartao de beneficio - nao consome dinheiro
-Alimentacao (dinheiro),variavel,900.00,suposicao,Parte do teto de 3500 que voce definiu. Ajuste depois de 1 mes real.
-Casa e mercado,variavel,450.00,suposicao,Limpeza gas utensilios. Fecha o teto de 3500 com os fixos acima.
-Transporte,variavel,0.00,PREENCHER,Voce nao mencionou transporte. Defina uma cota ou deixe 0.
-Cannabis,variavel,160.00,dado,Valor informado para agosto
-Pessoal e lazer,variavel,0.00,PREENCHER,Corte de cabelo roupa sair. Defina uma cota.
-Saude,variavel,0.00,PREENCHER,Consulta remedio dentista.
-Dividas e acordos,divida,936.58,dado,Soma das parcelas de agosto: Ana 500 + Meire 250 + DAS 186.58
-Guardar,investimento,0.00,PREENCHER,Reserva de emergencia. Defina quanto da para guardar por mes.
-Outros,variavel,0.00,suposicao,Tudo que nao se encaixa. Se encher muito revise as categorias.</script>
+<script type="text/plain" id="csv_categorias">nome,grupo,fonte,envelope,cota_mensal,origem_da_cota,observacao
+Guardar,investimento,dinheiro,Reserva,1500.00,dado,20% dos 7500. Voce decidiu 1500 este mes - 700 ja em 05/08 e 800 em 06/08.
+Moradia,essencial,dinheiro,Cofrinho dia 15,1900.00,dado,Aluguel - vence dia 15. Voce ja separou 2100 no cofrinho.
+Contas de casa,essencial,dinheiro,Cofrinho dia 15,160.00,dado,Luz 110 + Agua 50 - vencem dia 15
+Internet e telefone,essencial,dinheiro,Fixos do mes,85.00,dado,Plano de celular
+Assinaturas,essencial,dinheiro,Fixos do mes,189.89,dado,Wellhub 149.99 - academia inegociavel - + YouTube Premium 39.90
+Dividas e acordos,divida,dinheiro,Dividas,936.58,dado,Ana 500 + Meire 250 + DAS MEI 186.58
+Saude e performance,variavel,dinheiro,Saude e performance,0.00,PREENCHER,Suplementos omega 3 e L-theanina minoxidil exames. [PREENCHER] o custo mensal depois da primeira compra.
+Alimentacao (vale iFood),essencial,beneficio,Vale iFood,517.00,dado,Saldo do cartao em 05/08. Credito mensal de 1500. Carimbado - nao consome dinheiro.
+Alimentacao (dinheiro),variavel,dinheiro,Dia a dia,900.00,suposicao,Parte do teto de 3500 que voce definiu. Comer bem e parte da meta de performance.
+Casa e mercado,variavel,dinheiro,Dia a dia,450.00,suposicao,Limpeza gas utensilios.
+Cannabis,variavel,dinheiro,Dia a dia,160.00,dado,Pago em 05/08
+Transporte,variavel,dinheiro,Dia a dia,0.00,PREENCHER,Voce nunca informou.
+Pessoal e lazer,variavel,dinheiro,Dia a dia,0.00,PREENCHER,Corte de cabelo roupa sair.
+Outros,variavel,dinheiro,Dia a dia,0.00,suposicao,Tudo que nao se encaixa.</script>
 <script type="text/plain" id="csv_dividas">id,credor,saldo_atual,taxa_juros_mensal,valor_parcela,parcelas_restantes,data_vencimento,situacao,observacao
 D01,Ana (irma) - notebook,750.00,0,500.00,2,,em dia,Agosto 500 e setembro 250. Juros zero [suposicao - divida familiar]. [PREENCHER] dia do pagamento.
 D02,Meire,500.00,0,250.00,2,,em dia,Agosto 250. Juros zero [suposicao]. [PREENCHER] quando paga o restante de 250.
@@ -401,21 +412,29 @@ D05,Divida MEI Dog,,,,12,,parada - revisar,[PREENCHER] saldo taxa parcela e venc
 D06,Inter (Serasa),856.87,,,,,nao negociada,Sem acordo. [PREENCHER] taxa de juros - sem ela nao da para calcular o custo de adiar.
 D07,Unifacs (Serasa),160.00,,,,,nao negociada,Sem acordo. [PREENCHER] taxa de juros.
 D08,Localiza (Serasa),1706.00,,,,,nao negociada,Sem acordo. [PREENCHER] taxa de juros.</script>
-<script type="text/plain" id="csv_metas">id,nome,valor_alvo,valor_atual,data_alvo,prioridade,observacao
-M01,Reserva de emergencia,,0.00,,1,Voce tem 0 guardado [dado]. [PREENCHER] valor alvo e prazo. Referencia [suposicao]: 3x seus gastos fixos mensais (2334.89) = 7004.67.
-M02,Quitar as dividas do Serasa,2722.87,0.00,,2,Soma Inter 856.87 + Unifacs 160 + Localiza 1706 [dado]. [PREENCHER] data alvo.
-M03,Investir em mim,,0.00,,3,Voce citou como objetivo. [PREENCHER] o que e quanto custa e ate quando.</script>
+<script type="text/plain" id="csv_metas">id,nome,area,valor_alvo,valor_atual,data_alvo,prioridade,razao,pratica,observacao
+M01,Reserva de Oportunidade,financeiro,20000.00,700.00,2028-08-04,1,Armadura que elimina o medo de escassez e permite dizer nao,Sai no dia do pagamento antes de tudo,Guardando 1500 por mes voce chega em 13 meses e nao em 24. Ajuste a data se sustentar o ritmo.
+M02,Quitar as dividas do Serasa,financeiro,2722.87,0.00,2027-02-04,2,Sair da posicao de devedor e limpar o nome,Negociar antes de pagar - divida em cobranca costuma ter desconto,Inter 856.87 + Unifacs 160 + Localiza 1706. Nenhuma negociada ainda.
+M03,Zerar todos os passivos,financeiro,4159.45,0.00,2027-02-04,3,Nenhum credor decidindo o meu mes,Toda sobra sem destino vai para a divida de maior juros,Inclui Ana Meire e DAS. Duas dividas MEI ainda sem valor [PREENCHER].
+M04,Renda de 15 mil por mes,financeiro,15000.00,7500.00,2027-08-04,1,Objetivo Principal Definido - ver aba objetivo,Escada trimestral - proximo degrau 9375 em nov/26,A reuniao com o Chris e o primeiro movimento concreto desta meta.
+M05,Saude e alta performance,fisico,,0.00,,2,Corpo e o primeiro indicador a cair - ele avisa antes da conta bancaria,Academia inegociavel + suplementacao + comer bem,[PREENCHER] o numero e a data. Ex: peso composicao corporal ou frequencia de treino por semana.
+M06,Tratamento de barba,fisico,,0.00,,4,[PREENCHER] por que isso importa para voce,Minoxidil - [PREENCHER] frequencia,[PREENCHER] por quanto tempo vai fazer e qual o marco de avaliacao. Tratamento sem prazo definido vira gasto recorrente sem revisao.
+M07,Exames em dia,fisico,,0.00,,5,Nao dá para otimizar o que nao se mede,[PREENCHER] quais exames e de quanto em quanto tempo,[PREENCHER] data do proximo check-up.
+M08,Investir em mim - proxima habilidade,intelectual,,0.00,,3,Cada habilidade adquirida vira preco por hora,Uma por vez ate virar receita,[PREENCHER] qual habilidade. Passo 8 do metodo. A reuniao com o Chris deve responder isso.
+M09,[PREENCHER] meta espiritual,espiritual,,0.00,,6,[PREENCHER],Pranayama e retencao ja estao na Ancoragem diaria,Numero e data.
+M10,[PREENCHER] meta de relacionamento,relacionamento,,0.00,,7,[PREENCHER],[PREENCHER],Numero e data.</script>
 <script type="text/plain" id="csv_contas">id,nome,tipo,papel,saldo_inicio_mes,mes_referencia,dia_fechamento,dia_vencimento,entra_no_disponivel,observacao
-BB,Banco do Brasil,corrente,recebimento,10.00,2026-08,,,sim,Recebe a renda e paga os fixos. Saldo informado por voce em 30/07/2026. Atualize no fechamento do mes.
-NU,Nubank,corrente,dia_a_dia,0.00,2026-08,,,sim,Gasto do dia a dia. [PREENCHER] saldo real.
-MP,Mercado Pago,corrente,reserva,0.00,2026-08,,,sim,Reserva de Oportunidade. E esta conta que alimenta a barra do Degrau 1.
-IFOOD,Beneficio iFood,beneficio,beneficio,0.00,2026-08,,,nao,Dinheiro carimbado - so alimentacao. NAO entra no saldo disponivel nem na renda de trabalho.</script>
+BB,Banco do Brasil,corrente,recebimento,10.00,2026-08,,,sim,Saldo no dia 1. Salario de 7500 entrou 05/08. Limite de pix 3000 por dia - por isso a reserva de 1500 saiu em duas vezes.
+NU,Nubank,corrente,dia_a_dia,0.00,2026-08,,,sim,Gasto do dia a dia. [PREENCHER] saldo real se tiver algo.
+MP,Mercado Pago,corrente,reserva,0.00,2026-08,,,sim,Reserva de Oportunidade. Recebeu 700 em 05/08 e recebe mais 800 em 06/08.
+IFOOD,Beneficio iFood,beneficio,beneficio,517.00,2026-08,,,nao,Saldo informado por voce em 05/08. Credito mensal de 1500 [dado] - ja consumido em parte.</script>
 <script type="text/plain" id="csv_recorrentes">id,nome,tipo,valor,categoria,conta,dia_do_mes,ativo,observacao
 R01,Salario,entrada,7500.00,,BB,5,sim,Cai dia 5 [dado]
-R02,Beneficio iFood,entrada,1500.00,,IFOOD,,sim,[PREENCHER] dia que cai. Dinheiro carimbado para alimentacao.
-R03,Aluguel,saida,1900.00,Moradia,BB,,sim,[PREENCHER] dia de vencimento
-R04,Conta de luz,saida,110.00,Contas de casa,BB,,sim,[PREENCHER] dia de vencimento. Valor varia - ajuste no lancamento.
-R05,Conta de agua,saida,50.00,Contas de casa,BB,,sim,[PREENCHER] dia de vencimento
+R02,Beneficio iFood,entrada,,,IFOOD,,sim,[PREENCHER] valor do credito mensal e dia que cai. Em 05/08 o saldo era 561.
+R03,Aluguel,saida,1900.00,Moradia,BB,15,sim,Vence dia 15 [dado]
+R04,Conta de luz,saida,110.00,Contas de casa,BB,15,sim,Vence dia 15 [dado]. Valor varia.
+R05,Conta de agua,saida,50.00,Contas de casa,BB,15,sim,Vence dia 15 [dado]
+R09,Reserva - 10%,saida,750.00,Guardar,MP,5,sim,Sai no dia do pagamento antes de qualquer outra coisa
 R06,Internet movel,saida,85.00,Internet e telefone,BB,,sim,Informado entre 80 e 90. [PREENCHER] valor exato e dia.
 R07,Wellhub Silver,saida,149.99,Assinaturas,BB,,sim,[PREENCHER] dia da cobranca
 R08,YouTube Premium,saida,39.90,Assinaturas,BB,,sim,[PREENCHER] dia da cobranca</script>
@@ -442,6 +461,48 @@ F6,Agir por reacao a circunstancia,presenca,,,A circunstancia se curva a decisao
 <script type="text/plain" id="csv_habilidades">id,habilidade,por_que_destrava_o_degrau,custo,prazo,status,ordem
 H01,[PREENCHER],[PREENCHER] que gargalo do Degrau 1 esta habilidade remove,,,em_foco,1</script>
 
+<script type="text/plain" id="csv_objetivo">n,passo,pergunta,resposta,status,valor_base,valor_alvo,data_inicio,data_alvo
+0,Objetivo Principal Definido,Qual e a meta numero um da sua vida nos proximos 12 meses,Renda de trabalho de R$ 15.000 por mes,definido,7500.00,15000.00,2026-08-04,2027-08-04
+1,Desejo,Por que voce quer isso com forca suficiente para atravessar fracasso e humilhacao,[PREENCHER],pendente,,,,
+2,Crenca,De 0 a 10 quanto voce acredita que consegue. Menos de 7 significa que o degrau esta grande demais,[PREENCHER] — a escada trimestral existe para manter cada degrau acima de 7,pendente,,,,
+3,Escrito,Escreva a meta em uma frase no presente com linguagem viva,[PREENCHER],pendente,,,,
+4,Razoes,Liste todas as razoes. Cada razao e combustivel na fornalha. Tracy pede no minimo dez,4 semeadas do que voce ja me disse — ver aba acoes tipo razao,parcial,,,,
+5,Ponto de partida,Onde voce esta hoje. Numeros crus forcas e fraquezas,Calculado pelo painel — renda 7.500 passivo 4.159 reserva 0,automatico,,,,
+6,Prazo,Data final e os prazos menores,04/08/2027 com escada trimestral calculada pelo painel,definido,,,,
+7,Obstaculos e a Rocha,Tudo que esta entre voce e a meta. Qual e a rocha,3 hipoteses minhas para voce confirmar ou recusar — ver aba acoes,parcial,,,,
+8,Conhecimento,Qual conhecimento faz um cliente pagar mais pela sua hora,[PREENCHER] na aba habilidades,pendente,,,,
+9,Clientes,De quem voce precisa a cooperacao e o que oferece em troca,Ver aba acoes tipo cliente,parcial,,,,
+10,Plano,A lista de atividades em ordem de prioridade,Ver aba acoes tipo acao,pendente,,,,
+11,Visualizacao,Descreva a cena do objetivo ja realizado como se ja tivesse acontecido,[PREENCHER],pendente,,,,
+12,Persistencia,O que voce se compromete a fazer no dia em que quiser desistir,[PREENCHER],pendente,,,,</script>
+
+<script type="text/plain" id="csv_acoes">id,tipo,titulo,detalhe,prioridade,prazo,status,e_a_rocha,origem
+R01,razao,Zerar os passivos e sair da posicao de devedor,Seis credores consomem R$ 936 por mes que poderiam ser reserva,1,,ativa,nao,dado
+R02,razao,Construir a armadura que elimina o medo de escassez,Dinheiro acumulado como soberania e nao como conforto,2,,ativa,nao,dado
+R03,razao,Florianopolis com padrao alto — mar foco e liberdade,O lugar e o modo de vida que voce definiu no seu proprio sistema,3,,ativa,nao,dado
+R04,razao,Investir em mim — uma habilidade nova por vez,Cada habilidade adquirida vira preco por hora,4,,ativa,nao,dado
+R05,razao,[PREENCHER],Cada razao a mais aumenta o desejo. Tracy pede no minimo dez,5,,pendente,nao,
+R06,razao,[PREENCHER],,6,,pendente,nao,
+R07,razao,[PREENCHER],,7,,pendente,nao,
+R08,razao,[PREENCHER],,8,,pendente,nao,
+R09,razao,[PREENCHER],,9,,pendente,nao,
+R10,razao,[PREENCHER],,10,,pendente,nao,
+O01,obstaculo,Renda fixa de uma unica fonte,Nenhuma disciplina de gasto move um salario fixo. Para sair de 7.500 e preciso renegociar ou criar uma segunda fonte. Se voce confirmar esta e a Rocha,1,,aberto,talvez,suposicao
+O02,obstaculo,Zero de reserva,Qualquer imprevisto vira divida nova e joga voce para tras na escada,2,,aberto,nao,dado
+O03,obstaculo,Seis credores ativos,R$ 936 por mes comprometidos e duas dividas MEI sem valor conhecido,3,,aberto,nao,dado
+O04,obstaculo,[PREENCHER] — algo interno,Medo de cobrar caro insegura de vender falta de autoconfianca. Tracy diz que a rocha costuma ser interna,4,,pendente,nao,
+O05,obstaculo,[PREENCHER],,5,,pendente,nao,
+C01,cliente,Orbit,Quem paga hoje. O que voce oferece a mais do que e pago para justificar renegociacao,1,,ativo,nao,dado
+C02,cliente,[PREENCHER],De quem mais voce precisa da cooperacao para chegar aos 15 mil,2,,pendente,nao,
+C03,cliente,[PREENCHER],,3,,pendente,nao,
+A01,acao,[PREENCHER] — primeira atividade do plano,O plano e uma lista de atividades em ordem de prioridade e de tempo. So faz sentido depois de definida a Rocha,1,,pendente,nao,
+A02,acao,[PREENCHER],,2,,pendente,nao,
+A03,acao,[PREENCHER],,3,,pendente,nao,
+P01,recompensa,[PREENCHER] — recompensa do primeiro degrau,Q1 batido em 11/2026 com renda de R$ 9.375. O que voce se da,1,2026-11-04,pendente,nao,
+P02,recompensa,[PREENCHER] — recompensa do segundo degrau,Q2 em 02/2027 com R$ 11.250,2,2027-02-04,pendente,nao,
+P03,recompensa,[PREENCHER] — recompensa do terceiro degrau,Q3 em 05/2027 com R$ 13.125,3,2027-05-04,pendente,nao,
+P04,recompensa,[PREENCHER] — recompensa do objetivo,Q4 em 08/2027 com R$ 15.000,4,2027-08-04,pendente,nao,</script>
+
 <script>
 /* =========================================================
    CENTRAL DO ARQUITETO SOBERANO
@@ -450,7 +511,7 @@ H01,[PREENCHER],[PREENCHER] que gargalo do Degrau 1 esta habilidade remove,,,em_
    Nenhum valor de dinheiro está escrito neste código.
    ========================================================= */
 const ABAS=['transacoes','categorias','dividas','metas','contas','recorrentes',
-            'degrau','ancoragem','filtros','habilidades'];
+            'degrau','ancoragem','filtros','habilidades','objetivo','acoes'];
 const CFG={
   get url(){return localStorage.getItem('as_url')||''},
   set url(v){localStorage.setItem('as_url',v)},
@@ -605,7 +666,8 @@ function cotas(){
     c.projecao=c.gastoDiario>0?(c.gastoDiario/dia*dm)+(c.gasto-c.gastoDiario)+c.previsto:c.total;
     c.estourou=c.cota>0&&c.total>c.cota+.005;
     c.risco=!c.estourou&&c.cota>0&&c.projecao>c.cota+.005;
-    c.sobra=c.cota-c.total;return c;
+    c.sobra=Math.round((c.cota-c.total)*100)/100;  // sem isso, 189,89-189,89 vira "passou R$ 0,00"
+    return c;
   }).filter(c=>c.cota>0||c.total>0)
     .sort((a,b)=>(b.estourou-a.estourou)||(b.risco-a.risco)||(b.cota-a.cota));
 }
@@ -730,8 +792,8 @@ function desenhar(){
     ligar(); return;
   }
   const h=faixaEstado()+cardDiagnostico()+
-    (ABA==='hoje'?abaHoje():ABA==='degrau'?abaDegrau():ABA==='metas'?abaMetas()
-     :ABA==='dividas'?abaDividas():abaHistorico());
+    (ABA==='hoje'?abaHoje():ABA==='objetivo'?abaObjetivo():ABA==='degrau'?abaDegrau()
+     :ABA==='metas'?abaMetas():ABA==='dividas'?abaDividas():abaHistorico());
   document.getElementById('conteudo').innerHTML=h;
   ligar();
 }
@@ -744,6 +806,10 @@ function abaHoje(){
     <div class="hero">
       <div class="eyebrow">Posso gastar até o fim de ${nomeMes(MES)}</div>
       <div class="valor">${BRL(s.livre)}</div>
+      ${(()=>{ const dm=diasNoMes(MES);
+        const rest=(MES===comp(hoje))?Math.max(1,dm-hoje.getDate()+1):dm;
+        return `<div style="font-size:15px;font-weight:700;margin-top:2px">
+          ${BRL(s.livre/rest)} por dia nos ${rest} dias que faltam</div>`;})()}
       <div class="linha">
         <div class="mini"><span>Em conta</span><b>${BRL(s.caixa)}</b></div>
         <div class="mini"><span>A receber</span><b>${BRL(s.entradaPrev)}</b></div>
@@ -771,6 +837,8 @@ function abaHoje(){
   h+='<div class="colunas">';
 
   /* a pagar */
+  h+=blocoEnvelopes();
+
   const ap=aPagar(), lim=verTudo.ap?ap.length:4;
   h+='<div>';
   if(ap.length){
@@ -856,6 +924,267 @@ function abaDegrau(){
   return h;
 }
 
+/* --- envelopes: para onde vai cada real do mês --- */
+const ORDEM_ENV=['Reserva','Cofrinho dia 15','Fixos do mes','Dividas','Dia a dia'];
+function envelopes(){
+  const disp=contasDisp().map(c=>c.id);
+  const ini=contasDisp().reduce((s,c)=>s+(num(c.saldo_inicio_mes)||0),0);
+  const tx=txDoMes(MES);
+  const entrou=tx.filter(t=>t.tipo==='entrada'&&disp.includes(t.conta))
+    .reduce((s,t)=>s+(num(t.valor)||0),0);
+  const total=ini+entrou;
+
+  const bolsos={};
+  BASE.categorias.forEach(c=>{
+    if((c.fonte||'dinheiro')!=='dinheiro') return;
+    const e=c.envelope||'Dia a dia';
+    if(!bolsos[e]) bolsos[e]={nome:e,cota:0,gasto:0,previsto:0};
+    bolsos[e].cota+=num(c.cota_mensal)||0;
+  });
+  const porCat={};
+  BASE.categorias.forEach(c=>porCat[c.nome]=c);
+  tx.filter(t=>t.tipo==='saida').forEach(t=>{
+    const c=porCat[t.categoria];
+    if(c&&(c.fonte||'dinheiro')!=='dinheiro') return;
+    const e=(c&&c.envelope)||'Dia a dia';
+    if(!bolsos[e]) bolsos[e]={nome:e,cota:0,gasto:0,previsto:0};
+    const v=num(t.valor)||0;
+    if(feito(t)) bolsos[e].gasto+=v; else bolsos[e].previsto+=v;
+  });
+  const lista=ORDEM_ENV.filter(k=>bolsos[k]).map(k=>bolsos[k])
+    .concat(Object.values(bolsos).filter(b=>!ORDEM_ENV.includes(b.nome)));
+  const destinado=lista.reduce((s,b)=>s+Math.max(b.cota,b.gasto+b.previsto),0);
+  return {total,ini,entrou,lista,semDestino:Math.round((total-destinado)*100)/100};
+}
+
+function blocoEnvelopes(){
+  const e=envelopes();
+  if(!e.total) return '';
+  const pct=v=>e.total?v/e.total*100:0;
+  let h=`<div class="card"><h2>Destino do dinheiro &middot; ${nomeMes(MES)}</h2>
+    <p class="sub" style="margin:-6px 0 16px">Entraram <b>${BRL(e.total)}</b> na conta.
+    Cada real precisa de um bolso — o que sobra sem nome vira gasto sem lembrança.</p>`;
+  e.lista.forEach(b=>{
+    const usado=b.gasto+b.previsto, base=Math.max(b.cota,usado)||1;
+    h+=`<div class="prog"><div class="cab">
+      <div class="t">${esc(b.nome)}</div>
+      <div class="v">${BRL(b.cota||usado)} <i>${Math.round(pct(b.cota||usado))}%</i></div></div>
+      ${barra([{w:b.gasto/base*100,c:'var(--success)'},{w:b.previsto/base*100,c:'var(--gold)'}])}
+      <div class="sub">${BRL(b.gasto)} já saiu · ${BRL(b.previsto)} agendado${
+        b.cota>usado?' · '+BRL(b.cota-usado)+' ainda sem lançamento':''}</div></div>`;
+  });
+  const sd=e.semDestino;
+  h+=`<div class="prog" style="border-top-width:2px">
+    <div class="cab"><div class="t">${sd>=0?'Sem destino':'Passou do que entrou'}</div>
+      <div class="v ${sd<0?'bad':'gold'}">${BRL(Math.abs(sd))} <i>${Math.round(Math.abs(pct(sd)))}%</i></div></div>
+    ${barra([{w:Math.abs(pct(sd)),c:sd<0?'var(--danger)':'rgba(255,186,26,.45)'}])}
+    <div class="sub">${sd<0
+      ? 'Os bolsos somam mais do que entrou. Corte alguma cota.'
+      : 'Enquanto não tiver nome, esse dinheiro é o que desaparece até o dia 30.'}</div></div>`;
+  h+=`<div class="hint">Reserva sai primeiro, no dia do pagamento. O Cofrinho é aluguel, luz e água
+    do dia 15 — se você mover esse valor para uma caixinha hoje, o número no painel não muda,
+    mas a tentação some.</div></div>`;
+  return h;
+}
+
+/* ============ ABA: OBJETIVO — os 12 passos ============ */
+function objCfg(){
+  const r=(BASE.objetivo||[]).find(x=>String(x.n)==='0');
+  if(!r) return null;
+  const ini=r.data_inicio||'', fim=r.data_alvo||'';
+  const base=num(r.valor_base)||0, alvo=num(r.valor_alvo)||0;
+  const d0=ini?new Date(ini+'T00:00:00'):null, d1=fim?new Date(fim+'T00:00:00'):null;
+  const dia=x=>new Date(ymd(x)+'T00:00:00');  // zera a hora, senão meio dia arredonda errado
+  const total=(d0&&d1)?Math.round((d1-d0)/86400000):null;
+  const passados=d0?Math.floor((dia(hoje)-d0)/86400000):null;
+  return {frase:r.resposta||'',base,alvo,ini,fim,
+    diasTotal:total, diaAtual:(passados!=null?Math.max(0,passados)+1:null),
+    faltam:(total!=null&&passados!=null)?Math.max(0,total-passados):null};
+}
+function escada(c){
+  if(!c||!c.alvo||!c.ini) return [];
+  const passo=(c.alvo-c.base)/4, out=[];
+  for(let i=1;i<=4;i++){
+    const v=c.base+passo*i;
+    const d=new Date(c.ini+'T00:00:00'); d.setMonth(d.getMonth()+i*3);
+    out.push({rot:'Q'+i, valor:v, data:ymd(d),
+      pct:(v/c.base-1)*100, vencido:ymd(d)<ymd(hoje)});
+  }
+  return out;
+}
+const acoesDo=t=>(BASE.acoes||[]).filter(a=>(a.tipo||'')===t);
+const vazio_=s=>!s||/PREENCHER/i.test(String(s));
+
+function abaObjetivo(){
+  const c=objCfg();
+  if(!c) return '<div class="card"><h2>Objetivo</h2><p class="sub">A aba <b>objetivo</b> não veio na base.</p></div>';
+  const dg=degrau();
+  const rendaHoje=(dg.find(g=>/trabalho/i.test(g.nome))||{}).atual||0;
+  const prog=c.alvo>c.base?Math.max(0,Math.min(100,(rendaHoje-c.base)/(c.alvo-c.base)*100)):0;
+  let h='';
+
+  /* HERO — o Objetivo Principal Definido */
+  h+=`<div class="hero">
+    <div class="eyebrow">Objetivo Principal Definido${c.diaAtual?' &middot; dia '+c.diaAtual+' de '+c.diasTotal:''}</div>
+    <div class="valor">${BRL(c.alvo)}</div>
+    <div style="font-size:15px;font-weight:700;margin-top:-2px">${esc(c.frase)} &middot; até ${brData(c.fim)}</div>
+    <div class="linha">
+      <div class="mini"><span>Hoje</span><b>${BRL(rendaHoje)}</b></div>
+      <div class="mini"><span>Falta construir</span><b>${BRL(Math.max(0,c.alvo-rendaHoje))}</b></div>
+      <div class="mini"><span>Dias restantes</span><b>${c.faltam!=null?c.faltam:'—'}</b></div>
+    </div></div>`;
+
+  /* ESCADA TRIMESTRAL — passo 6 */
+  const esc4=escada(c);
+  if(esc4.length){
+    h+=`<div class="card"><h2>Passo 6 &middot; a escada até lá</h2>
+      <p class="sub" style="margin:-6px 0 14px">O método pede 50% por degrau. De 7.500 para 15.000 são 100% —
+      por isso ele vira quatro degraus de <b>${BRL((c.alvo-c.base)/4)}</b>. Cada um é acreditável; o salto direto não é.</p>`;
+    esc4.forEach(x=>{
+      const batido=rendaHoje>=x.valor-0.005;
+      const atual=!batido&&esc4.filter(y=>rendaHoje<y.valor-0.005)[0]===x;
+      h+=`<div class="prog"><div class="cab">
+        <div class="t">${x.rot} &middot; ${brData(x.data)}
+          ${batido?'<span class="badge badge--gold">batido</span>'
+            :atual?'<span class="badge badge--gold">degrau atual</span>'
+            :x.vencido?'<span class="badge badge--danger">prazo passou</span>':''}</div>
+        <div class="v">${BRL(x.valor)} <i>+${Math.round(x.pct)}%</i></div></div>
+        ${barra([{w:Math.min(100,rendaHoje/x.valor*100),c:batido?'var(--success)':'var(--gold)'}])}
+        <div class="sub">${batido?'conquistado':'faltam '+BRL(x.valor-rendaHoje)+' por mês'}</div></div>`;
+    });
+    h+=`<div class="hint">O Degrau 1 do seu sistema (R$ 18.000 a R$ 22.000) continua existindo — ele é o
+      nível <b>seguinte</b> a este objetivo, não o de 12 meses.</div></div>`;
+  }
+
+  h+='<div class="colunas"><div>';
+
+  /* RAZÕES — passo 4 */
+  const raz=acoesDo('razao'), razOk=raz.filter(r=>!vazio_(r.titulo));
+  h+=`<div class="card"><h2>Passo 4 &middot; razões &middot; ${razOk.length} de 10</h2>
+    ${barra([{w:razOk.length/10*100,c:'var(--gold)'}])}
+    <p class="sub" style="margin:10px 0 14px">"As razões são o combustível na fornalha da realização."
+      Quanto mais razões, mais desejo. ${razOk.length<10?'Faltam <b>'+(10-razOk.length)+'</b>.':'Lista completa.'}</p>`;
+  razOk.forEach((r,i)=>{
+    h+=`<div class="row"><div class="nm">${i+1}. ${esc(r.titulo)}
+      ${r.detalhe?`<div class="sub">${esc(r.detalhe)}</div>`:''}</div></div>`;
+  });
+  if(razOk.length<10) h+=`<div class="aviso">Diga ao agente: <b>"adiciona uma razão: ..."</b> —
+    ele grava direto na planilha.</div>`;
+  h+='</div>';
+
+  /* A ROCHA — passo 7 */
+  const obs=acoesDo('obstaculo').filter(o=>!vazio_(o.titulo));
+  const rocha=obs.find(o=>(o.e_a_rocha||'').toLowerCase()==='sim');
+  const candidatas=obs.filter(o=>(o.e_a_rocha||'').toLowerCase()==='talvez');
+  h+=`<div class="card card-deep"><h2>Passo 7 &middot; a Rocha</h2>`;
+  if(rocha){
+    h+=`<div style="font-size:19px;font-weight:800;letter-spacing:-.02em;margin-bottom:8px">${esc(rocha.titulo)}</div>
+      <p class="sub" style="font-size:13.5px">${esc(rocha.detalhe||'')}</p>
+      <div class="veredito v-neutro" style="margin-top:14px">É nela que você bate dia e noite.
+        Remover esta pedra te leva mais longe que remover todas as outras somadas.</div>`;
+  } else {
+    h+=`<p class="sub" style="font-size:13.5px">Nenhuma rocha confirmada. ${candidatas.length?'Minha hipótese está marcada como <b>talvez</b> — confirme ou recuse:':''}</p>`;
+  }
+  obs.forEach(o=>{
+    const t=(o.e_a_rocha||'').toLowerCase();
+    if(t==='sim') return;
+    h+=`<div class="row"><div class="nm">${esc(o.titulo)}
+      ${t==='talvez'?'<span class="badge badge--gold">candidata a rocha</span>':''}
+      ${o.origem==='suposicao'?'<span class="badge badge--dark">suposição minha</span>':''}
+      <div class="sub">${esc(o.detalhe||'')}</div></div></div>`;
+  });
+  h+=`<div class="hint">Obstáculos vêm para ensinar, não para obstruir. Se não há obstáculo,
+    não é objetivo — é atividade.</div></div>`;
+
+  h+='</div><div>';
+
+  /* CONHECIMENTO — passo 8 */
+  const hb=(BASE.habilidades||[]).filter(x=>(x.status||'')==='em_foco')[0];
+  h+=`<div class="card"><h2>Passo 8 &middot; conhecimento</h2>
+    <p class="sub" style="margin:-6px 0 14px">"Você chegou tão longe quanto podia com o que sabe agora."
+      Qual conhecimento faz um cliente pagar mais pela sua hora?</p>
+    <div style="font-size:19px;font-weight:800;letter-spacing:-.02em">
+      ${hb&&!vazio_(hb.habilidade)?esc(hb.habilidade):PRE}</div>
+    ${hb&&hb.por_que_destrava_o_degrau&&!vazio_(hb.por_que_destrava_o_degrau)
+      ?`<p class="sub" style="margin-top:6px">${esc(hb.por_que_destrava_o_degrau)}</p>`:''}
+    <div class="row" style="margin-top:12px"><div class="nm">Custo</div>
+      <div class="vl">${hb&&num(hb.custo)!=null?BRL(num(hb.custo)):PRE}</div></div>
+    <div class="row"><div class="nm">Prazo</div>
+      <div class="vl">${hb&&hb.prazo?brData(hb.prazo):PRE}</div></div>
+    <div class="hint">Uma por vez. E a segunda via do conhecimento é perguntar: procure quem já
+      faz o que você quer fazer e pergunte.</div></div>`;
+
+  /* CLIENTES — passo 9 */
+  const cli=acoesDo('cliente').filter(x=>!vazio_(x.titulo));
+  h+=`<div class="card"><h2>Passo 9 &middot; de quem você precisa</h2>
+    <p class="sub" style="margin:-6px 0 14px">Você é recompensado na proporção do valor que entrega.
+      Para cada um: o que você oferece <b>além</b> do que é pago?</p>`;
+  if(!cli.length) h+='<p class="sub">'+PRE+'</p>';
+  cli.forEach(x=>{
+    h+=`<div class="row"><div class="nm">${esc(x.titulo)}
+      <div class="sub">${esc(x.detalhe||'')}</div></div></div>`;
+  });
+  h+='</div>';
+
+  h+='</div></div>';
+
+  /* PLANO — passo 10 */
+  const pl=acoesDo('acao').filter(x=>!vazio_(x.titulo));
+  h+=`<div class="card"><h2>Passo 10 &middot; plano</h2>`;
+  if(!pl.length){
+    h+=`<p class="sub">Vazio de propósito. O plano é uma lista de atividades em ordem de prioridade,
+      e só faz sentido depois que a Rocha do passo 7 estiver confirmada. Definida a Rocha,
+      as três primeiras ações se escrevem sozinhas.</p>`;
+  } else {
+    pl.sort((a,b)=>(num(a.prioridade)||99)-(num(b.prioridade)||99));
+    pl.forEach((x,i)=>{
+      const feito=(x.status||'')==='feito';
+      h+=`<div class="row"><div class="nm">${i+1}. ${esc(x.titulo)}
+        ${feito?'<span class="badge badge--gold">feito</span>':''}
+        <div class="sub">${esc(x.detalhe||'')}</div></div>
+        <div class="vl">${x.prazo?brData(x.prazo):''}</div></div>`;
+    });
+  }
+  h+='</div>';
+
+  /* RECOMPENSAS — passo 6b */
+  const rec=acoesDo('recompensa');
+  if(rec.length){
+    h+=`<div class="card"><h2>Recompensas por degrau</h2>
+      <p class="sub" style="margin:-6px 0 14px">Pequenas recompensas no caminho, não só o bolo no fim.
+        Uma por degrau da escada.</p>`;
+    rec.forEach(x=>{
+      h+=`<div class="row"><div class="nm">${vazio_(x.titulo)?PRE:esc(x.titulo)}
+        <div class="sub">${esc(x.detalhe||'')}</div></div>
+        <div class="vl">${x.prazo?brData(x.prazo):''}</div></div>`;
+    });
+    h+='</div>';
+  }
+
+  /* OS 12 PASSOS — quanto do método está de pé */
+  const ps=(BASE.objetivo||[]).filter(x=>String(x.n)!=='0');
+  const pronto=ps.filter(x=>['definido','automatico'].includes((x.status||'').toLowerCase())).length;
+  const parcial=ps.filter(x=>(x.status||'').toLowerCase()==='parcial').length;
+  h+=`<div class="card card-deep"><h2>Os 12 passos &middot; ${pronto} de pé, ${parcial} pela metade</h2>
+    ${barra([{w:pronto/12*100,c:'var(--success)'},{w:parcial/12*100,c:'var(--gold)'}])}
+    <p class="sub" style="margin:10px 0 4px">Passo pendente não é fracasso — é a fila.
+      Os que dependem só de você estão marcados.</p>`;
+  ps.forEach(x=>{
+    const st=(x.status||'').toLowerCase();
+    const cor=st==='definido'?'badge--gold':st==='automatico'?'badge--dark':st==='parcial'?'badge--gold':'badge--danger';
+    const rot=st==='automatico'?'o painel calcula':st;
+    h+=`<div class="row"><div class="nm">${x.n}. ${esc(x.passo)}
+      <span class="badge ${cor}">${esc(rot)}</span>
+      <div class="sub">${esc(x.pergunta||'')}</div>
+      ${!vazio_(x.resposta)?`<div class="sub" style="color:var(--text-2);margin-top:4px">${esc(x.resposta)}</div>`:''}
+      </div></div>`;
+  });
+  h+=`<div class="hint">Para responder qualquer um deles: abra o agente e diga
+    <b>"responde o passo 1: ..."</b>. Ele grava na planilha.</div></div>`;
+
+  return h;
+}
+
 /* ============ ABA: METAS ============ */
 function anel(pct,cor){
   const r=44, c=2*Math.PI*r, off=c-(Math.max(0,Math.min(100,pct))/100)*c;
@@ -865,8 +1194,13 @@ function anel(pct,cor){
       stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}"/>
     </svg><div class="dentro"><div><b>${Math.round(pct)}%</b><span>feito</span></div></div></div>`;
 }
+const ORDEM_AREA=['financeiro','fisico','intelectual','espiritual','relacionamento'];
+const NOME_AREA={financeiro:'Financeiro',fisico:'Físico e performance',intelectual:'Intelectual',
+                 espiritual:'Espiritual',relacionamento:'Relacionamento'};
 function abaMetas(){
-  const lista=metas().map((m,i)=>({...m,id:(BASE.metas[i]||{}).id||''}));
+  const lista=metas().map((m,i)=>({...m,id:(BASE.metas[i]||{}).id||'',
+    area:(BASE.metas[i]||{}).area||'', razao:(BASE.metas[i]||{}).razao||'',
+    pratica:(BASE.metas[i]||{}).pratica||''}));
   if(!lista.length) return '<div class="card"><h2>Metas</h2><p class="sub">Nenhuma meta cadastrada.</p></div>';
 
   let h=`<div class="card card-deep" style="margin-bottom:14px">
@@ -875,7 +1209,19 @@ function abaMetas(){
     <b style="color:var(--text)">próximo marco</b> e o <b style="color:var(--text)">custo por dia</b>.
     Os dois estão em cada cartão abaixo.</p></div>`;
 
-  lista.forEach((m,idx)=>{
+  const areas=ORDEM_AREA.filter(a=>lista.some(m=>m.area===a))
+    .concat([...new Set(lista.map(m=>m.area))].filter(a=>a&&!ORDEM_AREA.includes(a)));
+  if(!areas.length) areas.push('');
+  let idxGlobal=0;
+  areas.forEach(area=>{
+    const doArea=lista.filter(m=>(m.area||'')===area);
+    if(!doArea.length) return;
+    const comAlvo=doArea.filter(m=>m.alvo!=null&&m.alvo>0).length;
+    h+=`<div style="display:flex;align-items:baseline;gap:10px;margin:22px 0 12px">
+      <div class="eyebrow" style="color:var(--gold)">${esc(NOME_AREA[area]||area||'Sem área')}</div>
+      <div class="sub">${comAlvo} de ${doArea.length} com alvo e prazo</div></div>`;
+  doArea.forEach(m=>{
+    const idx=idxGlobal++;
     const temAlvo=m.alvo!=null&&m.alvo>0;
     const pct=temAlvo?Math.min(100,m.atual/m.alvo*100):0;
     const cor=pct>=100?'var(--success)':'var(--gold)';
@@ -893,6 +1239,8 @@ function abaMetas(){
         ${anel(pct,cor)}
         <div class="meta-info">
           <h3>${esc(m.nome)}</h3>
+          ${m.razao&&!vazio_(m.razao)?`<div class="sub" style="margin:-3px 0 7px;font-style:italic">
+            "${esc(m.razao)}"</div>`:''}
           <div class="meta-falta"><small>${temAlvo?'Falta juntar':'Sem alvo definido'}</small>
             ${temAlvo?BRL(m.falta):PRE}</div>
           <div class="sub" style="margin-top:6px">${BRL(m.atual)} de ${temAlvo?BRL(m.alvo):'—'}
@@ -941,7 +1289,10 @@ function abaMetas(){
       data-meta="${esc(m.id)}" data-alvo="${m.alvo!=null?m.alvo:''}"
       data-data="${esc(BASE.metas.find(x=>x.id===m.id)?.data_alvo||'')}"
       data-atual="${m.atual}" data-nome="${esc(m.nome)}">Definir alvo, prazo e quanto já tenho</button></div>`;
+    if(m.pratica&&!vazio_(m.pratica))
+      h+=`<div class="hint" style="margin-top:10px"><b>Prática:</b> ${esc(m.pratica)}</div>`;
     h+='</div>';
+  });
   });
   return h;
 }
@@ -1118,7 +1469,14 @@ function contextoParaIA(){
     metas: BASE.metas.map(m=>({nome:m.nome,alvo:num(m.valor_alvo),atual:num(m.valor_atual),data:m.data_alvo||''})),
     dividas: BASE.dividas.map(d=>({credor:d.credor,saldo:num(d.saldo_atual),
       taxa_mensal:num(d.taxa_juros_mensal),parcela:num(d.valor_parcela)})),
-    degrau: degrau().map(g=>({nome:g.nome,atual:g.atual,piso:g.piso}))
+    degrau: degrau().map(g=>({nome:g.nome,atual:g.atual,piso:g.piso})),
+    objetivo_principal: (BASE.objetivo||[]).filter(x=>String(x.n)==='0')
+      .map(x=>({frase:x.resposta,alvo:num(x.valor_alvo),data:x.data_alvo}))[0]||null,
+    passos_do_metodo: (BASE.objetivo||[]).map(x=>({n:x.n,passo:x.passo,status:x.status})),
+    razoes_ja_listadas: (BASE.acoes||[]).filter(a=>a.tipo==='razao'&&!/PREENCHER/i.test(a.titulo||''))
+      .map(a=>a.titulo),
+    obstaculos_ja_listados: (BASE.acoes||[]).filter(a=>a.tipo==='obstaculo'&&!/PREENCHER/i.test(a.titulo||''))
+      .map(a=>({titulo:a.titulo,e_a_rocha:a.e_a_rocha}))
   };
 }
 function msg(quem,txt){
@@ -1151,6 +1509,17 @@ function mostrarProposta(acao,a){
     corpo=`<div class="linha"><span>Onde</span><b>${esc(a.aba)} · ${esc(a.chave_valor)}</b></div>`+
       Object.entries(campos).map(([k,v])=>
         `<div class="linha"><span>${esc(k)}</span><b>${esc(String(v))}</b></div>`).join('');
+  } else if(acao==='adicionar'){
+    const rot={razao:'Nova razão',obstaculo:'Novo obstáculo',cliente:'Novo cliente',
+               acao:'Nova ação do plano',recompensa:'Nova recompensa'};
+    titulo=rot[a.tipo]||'Novo item';
+    corpo=`<div class="linha"><span>Texto</span><b style="text-align:right">${esc(a.titulo||'')}</b></div>
+      ${a.detalhe?`<div class="linha"><span>Detalhe</span><b style="text-align:right">${esc(a.detalhe)}</b></div>`:''}
+      ${a.prazo?`<div class="linha"><span>Prazo</span><b>${brData(a.prazo)}</b></div>`:''}`;
+  } else if(acao==='responder_passo'){
+    titulo='Responder um dos 12 passos';
+    corpo=`<div class="linha"><span>Passo</span><b>${esc(a.passo||'')}</b></div>
+      <div class="linha"><span>Resposta</span><b style="text-align:right">${esc(a.resposta||'')}</b></div>`;
   }
   d.innerHTML=`<div class="eyebrow">${titulo}</div>${corpo}
     <div class="acoes"><button class="btn btn--ghost btn--sm" id="pNao" style="flex:1">Descartar</button>
@@ -1170,13 +1539,20 @@ async function executarProposta(cartao){
     if(acao==='lancar') p={acao:'lancar',valor:args.valor,tipo:args.tipo||'saida',
       categoria:args.categoria,conta:args.conta,descricao:args.descricao||'',data:ymd(hoje)};
     else if(acao==='quitar') p={acao:'quitar',id:args.id};
+    else if(acao==='adicionar') p={acao:'adicionar',tipo:args.tipo,titulo:args.titulo,
+      detalhe:args.detalhe||'',prazo:args.prazo||''};
+    else if(acao==='responder_passo') p={acao:'atualizar',aba:'objetivo',chave_valor:args.passo,
+      campos:JSON.stringify({resposta:args.resposta,status:'definido'})};
     else p={acao:'atualizar',aba:args.aba,chave_valor:args.chave_valor,
       campos:typeof args.campos==='string'?args.campos:JSON.stringify(args.campos||{})};
     const j=await api(p);
     BASE=normalizar(j.base);
     cartao.remove(); render();
     msg('ele', acao==='lancar' ? 'Feito. '+BRL(Number(args.valor))+' em '+args.categoria+'.'
-      : acao==='quitar' ? 'Baixado do caixa.' : 'Base corrigida.');
+      : acao==='quitar' ? 'Baixado do caixa.'
+      : acao==='adicionar' ? 'Registrado na lista.'
+      : acao==='responder_passo' ? 'Passo respondido. Está na aba Objetivo.'
+      : 'Base corrigida.');
   }catch(e){ b.textContent='Confirmar'; msg('err','Não consegui gravar: '+e.message) }
 }
 

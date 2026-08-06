@@ -56,6 +56,34 @@ const FERRAMENTAS = [{
       }
     },
     {
+      name: 'adicionar',
+      description: 'Acrescenta um item novo à lista do método de 12 passos: uma razão para querer o ' +
+                   'objetivo, um obstáculo, um cliente de quem se precisa, uma ação do plano ou uma recompensa.',
+      parameters: {
+        type: 'object',
+        properties: {
+          tipo: { type: 'string', enum: ['razao','obstaculo','cliente','acao','recompensa'] },
+          titulo: { type: 'string', description: 'A frase curta, com as palavras de Marco.' },
+          detalhe: { type: 'string', description: 'Complemento, se ele deu.' },
+          prazo: { type: 'string', description: 'AAAA-MM-DD, se ele deu.' }
+        },
+        required: ['tipo', 'titulo']
+      }
+    },
+    {
+      name: 'responder_passo',
+      description: 'Grava a resposta de um dos 12 passos do método (Desejo, Crença, Escrito, ' +
+                   'Visualização, Persistência etc.) ou marca qual obstáculo é a Rocha.',
+      parameters: {
+        type: 'object',
+        properties: {
+          passo: { type: 'string', description: 'O nome exato do passo, vindo do contexto. Ex.: "Desejo".' },
+          resposta: { type: 'string', description: 'A resposta, com as palavras de Marco.' }
+        },
+        required: ['passo', 'resposta']
+      }
+    },
+    {
       name: 'responder',
       description: 'Responde uma pergunta sobre os números, sem alterar nada.',
       parameters: {
@@ -81,7 +109,18 @@ REGRAS INEGOCIÁVEIS
 - Gasto com o vale/benefício iFood vai na conta IFOOD. Gasto normal vai na conta do dia a dia,
   a não ser que Marco diga outra.
 - Ao responder perguntas, seja curto e cite o número. Não dê conselho de investimento.
-- Números com vírgula decimal no português falado: "quarenta e cinco e cinquenta" = 45.50.`;
+- Números com vírgula decimal no português falado: "quarenta e cinco e cinquenta" = 45.50.
+
+MÉTODO DOS 12 PASSOS (Brian Tracy) — Marco está aplicando isto
+- "adiciona uma razão", "outro motivo", "mais um porquê" = adicionar com tipo razao.
+- "o obstáculo é...", "o que me travа é..." = adicionar com tipo obstaculo.
+- "a rocha é X" = responder_passo no passo "Obstaculos e a Rocha", com o texto dele.
+- "preciso da ajuda de X", "meu cliente é X" = adicionar com tipo cliente.
+- "vou fazer X", "primeira ação é" = adicionar com tipo acao.
+- "quando bater X eu me dou Y" = adicionar com tipo recompensa.
+- Respostas de Desejo, Crença, Escrito, Visualização, Persistência = responder_passo.
+- Preserve as palavras dele. Não melhore, não poetize, não resuma a frase dele.
+  A força do método está em ser a linguagem dele, não a sua.`;
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
